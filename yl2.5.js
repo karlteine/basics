@@ -9,7 +9,7 @@ readline.question('Sisestage kirja suurus: ', kirjaSuurus => {
       if (kirjaPealkiri == "" || kirjaSuurus > 1 && kirjaFail == "jah") {
         console.log("Kiri on spämm.") 
       } else {
-        console.log("Kiri ei ole spämm.")
+        console.log("Kiri ei ole spämm")
       }
       readline.close();
     });
