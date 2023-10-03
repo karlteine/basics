@@ -7,9 +7,9 @@ readline.question('Sisestage kirja suurus: ', kirjaSuurus => {
   readline.question('Sisestage kirja teema pealkiri: ', kirjaPealkiri => {
     readline.question('Kas kirjaga on kaasas fail? ', kirjaFail => {
       if (kirjaPealkiri == "" || kirjaSuurus > 1 && kirjaFail == "jah") {
-        console.log("Kiri on spämm.") 
+        console.log("Kiri on spamm") 
       } else {
-        console.log("Kiri ei ole spämm")
+        console.log("Kiri ei ole spamm")
       }
       readline.close();
     });
