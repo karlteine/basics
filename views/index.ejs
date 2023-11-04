@@ -7,6 +7,7 @@
 		<!-- Compiled and minified CSS -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<script src="https://kit.fontawesome.com/00cd9873e9.js" crossorigin="anonymous"></script>
 	</head>
 	<body>
 		<div class="container">
@@ -38,15 +39,15 @@
 						</div>
 						<div class="card-action">
 							<ul class="collection">
-							<% console.log(tasks) %>
 							<% tasks.forEach((task) => { %>
 								<li class="collection-item"><%= task.task %>
+								<a href="update-task/<%= task.id %>" class="secondary-content"><i class="fa-solid fa-pen-to-square" style="color: #ffab40;"></i></a>
 								<a href="delete-task/<%= task.id %>" class="
 								secondary-content"><i class="material-icons">delete</i></a>
 								</li>
 							<% }) %>		
 							</ul>
-							<a href="/delete-tasks" class="btn red">Clear all</a>
+							<a href="/delete-tasks" class="btn">Clear all</a>
 						</div>
 					</div>
 				</div>

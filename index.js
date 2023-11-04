@@ -133,7 +133,67 @@ app.get('/delete-tasks', (req, res) => {
     });
 });
 
+app.get('/update-task/:taskId', (req, res) => {
+  const taskId = parseInt(req.params.taskId);
 
-app.listen(3002, () => {
-	console.log('Example app is started at http://localhost:3002')
+  readFile('./views/tasks.json')
+    .then((tasks) => {
+      const taskToUpdate = tasks.find((task) => task.id === taskId);
+
+      if (taskToUpdate) {
+        res.render('update-task', {
+          tasks: tasks,
+          taskToUpdate: taskToUpdate,
+          error: null, // Initialize the error as null when initially rendering the update form
+        });
+      } else {
+        // Task not found, handle the error as needed
+        res.status(404).send('Task not found');
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send('Internal Server Error');
+    });
+});
+
+app.post('/update-task/:taskId', (req, res) => {
+    const taskId = parseInt(req.params.taskId);
+
+    // Control data from the form
+    if (req.body.task.trim().length === 0) {
+        const error = 'Please insert correct task data';
+        res.render('update-task', {
+            error: error,
+            taskToUpdate: { id: taskId, task: '' }, // Reset the taskToUpdate
+        });
+    } else {
+        // Tasks list data from the file
+        readFile('./views/tasks.json')
+            .then((tasks) => {
+                const taskToUpdate = tasks.find((task) => task.id === taskId);
+
+                if (taskToUpdate) {
+                    // Update the task name
+                    taskToUpdate.task = req.body.task;
+                    data = JSON.stringify(tasks, null, 2);
+                    return writeFile('./views/tasks.json', data);
+                } else {
+                    // Task not found, handle the error as needed
+                    res.status(404).send('Task not found');
+                }
+            })
+            .then(() => {
+                // Redirect to / to see the result
+                res.redirect('/');
+            })
+            .catch((err) => {
+                console.log(err);
+                res.status(500).send('Internal Server Error');
+            });
+    }
+});
+
+app.listen(3003, () => {
+	console.log('Example app is started at http://localhost:3003')
 })
